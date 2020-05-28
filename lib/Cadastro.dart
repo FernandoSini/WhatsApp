@@ -93,7 +93,7 @@ class _CadastroState extends State<Cadastro> {
                         borderRadius: BorderRadius.circular(32)),
                     onPressed: () {},
                   ),
-                )
+                ),
               ],
             ),
           ),
