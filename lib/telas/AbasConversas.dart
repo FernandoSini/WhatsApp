@@ -60,7 +60,7 @@ class _AbaConversasState extends State<AbaConversas> {
 
   @override
   Widget build(BuildContext context) {
-    
+
   //retornar as conversas na aba de conversas
     return StreamBuilder<QuerySnapshot>(
       stream:
@@ -107,7 +107,7 @@ class _AbaConversasState extends State<AbaConversas> {
                     DocumentSnapshot item = conversas[indice];
 
                     String urlImagem  = item["caminhoFoto"];
-                    String tipo       = item["tipoMensagem"];
+                    String tipoMensagem = item["tipo"];
                     String mensagem   = item["mensagem"];
                     String nome       = item["nome"];
                     String idDestinatario       = item["idDestinatario"];
@@ -141,7 +141,7 @@ class _AbaConversasState extends State<AbaConversas> {
                         ),
                       ),
                       subtitle: Text(
-                          tipo=="texto"
+                          tipoMensagem == "texto"
                               ? mensagem
                               : "Imagem...",
                           style: TextStyle(

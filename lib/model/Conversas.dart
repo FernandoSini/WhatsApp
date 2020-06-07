@@ -8,7 +8,7 @@ class Conversas{
   String _caminhoFoto;
   String _idRemetente;
   String _idDestinatario;
-  String _tipoMensagem; //texto ou imagem
+  String _tipo; //texto ou imagem
 
   Conversas();
   
@@ -40,7 +40,7 @@ class Conversas{
       "idRemetente": this.idRemetente,
       "idDestinatario": this.idDestinatario,
       "caminhoFoto": this.caminhoFoto,
-      "tipoMensagem": this.tipoMensagem,
+      "tipo": this.tipo,
 
     };
     return map;
@@ -77,9 +77,9 @@ class Conversas{
     _idDestinatario = value;
   }
 
-  String get tipoMensagem => _tipoMensagem;
+  String get tipo => _tipo;
 
-  set tipoMensagem(String value) {
-    _tipoMensagem = value;
+  set tipo(String value) {
+    _tipo = value;
   }
 }

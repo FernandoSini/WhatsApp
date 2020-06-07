@@ -48,6 +48,7 @@ class _MensagensState extends State<Mensagens> {
       mensagem.mensagem = textoMensagem;
       //pegando a imagem
       mensagem.urlImagem = "";
+      mensagem.data = Timestamp.now().toString();
       //pegando o tipo da mensagem
       mensagem.tipo = "texto";
 
@@ -71,7 +72,7 @@ class _MensagensState extends State<Mensagens> {
     cRemetente.mensagem = msg.mensagem;
     cRemetente.nome = widget.contato.nome;
     cRemetente.caminhoFoto = widget.contato.urlImagem;
-    cRemetente.tipoMensagem = msg.tipo;
+    cRemetente.tipo = msg.tipo;
     cRemetente.salvar();
 
     //salvar conversa destinatario
@@ -82,7 +83,7 @@ class _MensagensState extends State<Mensagens> {
     cDestinatario.mensagem = msg.mensagem;
     cDestinatario.nome = snapshot.data["nome"];
     cDestinatario.caminhoFoto = snapshot.data["urlImagem"];
-    cDestinatario.tipoMensagem = msg.tipo;
+    cDestinatario.tipo = msg.tipo;
     cDestinatario.salvar();
   }
 
@@ -161,6 +162,8 @@ class _MensagensState extends State<Mensagens> {
     mensagem.mensagem = "";
     //pegando a imagem
     mensagem.urlImagem = url;
+    //pegando a data
+    mensagem.data = Timestamp.now().toString(); //identifica um momento no tempo
     //pegando o tipo da mensagem
     mensagem.tipo = "imagem";
 
@@ -169,6 +172,7 @@ class _MensagensState extends State<Mensagens> {
 
     //Salvar mensagem para o destinatário
     _salvarMensagem(_idUserDestino, _idUserLogged, mensagem);
+    _salvarConversa(mensagem);
   }
 
   _recuperarDadosUsuario() async {
@@ -185,6 +189,7 @@ class _MensagensState extends State<Mensagens> {
     final stream = db.collection("mensagens")
         .document(_idUserLogged)
         .collection(_idUserDestino)
+        .orderBy("data", descending: false)
         .snapshots();
 
     stream.listen((dados){
