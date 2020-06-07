@@ -31,6 +31,7 @@ class _AbaContatosState extends State<AbaContatos> {
       if(dados["email"] == _emailUserLogged) continue; //o continue faz com que o for pule para o proximo item
 
       User user = User();
+      user.idUser = item.documentID; //pegando o id do usuario
       user.email = dados["email"];
       user.nome = dados["nome"];
       user.urlImagem = dados["urlImagem"];
@@ -60,13 +61,13 @@ class _AbaContatosState extends State<AbaContatos> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<User>>(
       future: _recuperarContatos(),
-
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
           case ConnectionState.waiting:
             return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Carregando contatos"),
                   CircularProgressIndicator()
@@ -86,6 +87,14 @@ class _AbaContatosState extends State<AbaContatos> {
                   User user = listaItens[index];
 
                   return ListTile(
+                    onTap: (){
+                      //passando os dados do usuário
+                      //abrindo a tela de mensagens
+                      Navigator.pushNamed(
+                        context, "/mensagens",
+                        arguments: user
+                      );
+                    },
                     contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
                     leading: CircleAvatar(
                       maxRadius: 30, //tamanho do radius

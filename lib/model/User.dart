@@ -1,17 +1,13 @@
 
 class User{
 
+  String _idUser;
   String _nome;
   String _senha;
   String _urlImagem;
   String _email;
 
 
-  String get senha => _senha;
-
-  set senha(String value) {
-    _senha = value;
-  }
 
   User();
 
@@ -21,6 +17,19 @@ class User{
       "email": this.email
     };
     return map;
+  }
+
+
+  String get idUser => _idUser;
+
+  set idUser(String value) {
+    _idUser = value;
+  }
+
+  String get senha => _senha;
+
+  set senha(String value) {
+    _senha = value;
   }
 
   String get email => _email;

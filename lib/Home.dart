@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/telas/AbaContatos.dart';
 import 'package:whatsapp/telas/AbasConversas.dart';
+import 'dart:io';
 
 import 'Login.dart';
 
@@ -24,10 +25,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       _emailUser = userLogged.email;
     });
   }
+  Future _verificarUsuarioLogado() async{
+    FirebaseAuth auth = FirebaseAuth.instance;
+    //auth.signOut();
+    //pegando o usuario atual
+    FirebaseUser userLogged = await auth.currentUser();
+    //verificando se o usuario está logado e redirecionando para a tela de login
+    if(userLogged == null){
+//      Navigator.pushReplacement(context, MaterialPageRoute(
+//          builder: (context) => Home() ));
+      //outra forma de fazer o navigator push, com as rotas centralizadas no route generator
+      Navigator.pushReplacementNamed(context, "/login");
+
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _verificarUsuarioLogado();
     _recuperarDados();
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -59,7 +75,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           indicatorWeight: 4,
           labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           controller: _tabController,
-          indicatorColor: Colors.white,
+          indicatorColor: Platform.isIOS ? Colors.grey[400] : Colors.white,
           tabs: [
             Tab(text: "Conversas"),
             Tab(
@@ -68,6 +84,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           ],
         ),
         title: Text("WhatsApp"),
+        elevation: Platform.isIOS ? 0 : 4,
         actions: [
           PopupMenuButton<String>(
             //menu superior a esquerda
