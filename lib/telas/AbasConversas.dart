@@ -65,7 +65,7 @@ class _AbaConversasState extends State<AbaConversas> {
     return StreamBuilder<QuerySnapshot>(
       stream:
       //fonte dos dados, de onde vamos buscar os dados
-      //passando os dados para o stream
+      //passando os dados para o stream.
       _controller.stream,
       // ignore: missing_return
       builder: (context, snapshot){
